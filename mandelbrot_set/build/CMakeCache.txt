@@ -122,7 +122,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=circle_mask
+CMAKE_PROJECT_NAME:STATIC=mandelbrotCalc
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -203,6 +203,15 @@ circle_mask_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 circle_mask_SOURCE_DIR:STATIC=/media/tymon-ubuntu-pc/Ubuntu Data 1/Parallel-Programming/Parallel-Prograrmming/mandelbrot_set
+
+//Value Computed by CMake
+mandelbrotCalc_BINARY_DIR:STATIC=/media/tymon-ubuntu-pc/Ubuntu Data 1/Parallel-Programming/Parallel-Prograrmming/mandelbrot_set/build
+
+//Value Computed by CMake
+mandelbrotCalc_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+mandelbrotCalc_SOURCE_DIR:STATIC=/media/tymon-ubuntu-pc/Ubuntu Data 1/Parallel-Programming/Parallel-Prograrmming/mandelbrot_set
 
 //Value Computed by CMake
 mandelbrotCalculation_BINARY_DIR:STATIC=/media/tymon-ubuntu-pc/Ubuntu Data 1/Parallel-Programming/Parallel-Prograrmming/mandelbrot_set/build

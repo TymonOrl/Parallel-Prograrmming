@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -flto=auto -shared  -o mandelbrotCalc.cpython-312-x86_64-linux-gnu.so CMakeFiles/mandelbrotCalc.dir/mandelbrotCalculation.cpp.o 

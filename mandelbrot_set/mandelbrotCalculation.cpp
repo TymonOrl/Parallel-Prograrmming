@@ -1,17 +1,31 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
+#include <cmath>
 
 namespace py = pybind11;
 
 
-uint8_t circle_value(double x, double y) {
-    return (x*x + y*y < 1.0) ? 0 : 255;
+static inline uint8_t pixel_value(double za, double zb,
+                                    double ca, double cb,
+                                    uint it, uint max_iteration, 
+                                    double inf_cap) {
+    double za_next = za*za - zb*zb + ca;
+    if(abs(za_next) > inf_cap){
+        return static_cast<uint16_t>(it);
+    } else if (it >= max_iteration){
+        return 0u;
+    }
+    double zb_next = 2.0*za*zb + cb;
+
+
+    return pixel_value(za_next, zb_next, ca, cb, it+1, max_iteration, inf_cap);
 }
 
-py::array_t<uint8_t> circle_mask(
-   int width, int height,
+py::array_t<uint8_t> mandelbrotCalc(
+    uint width, uint height,
     double a_min, double a_max,
-    double b_min, double b_max
+    double b_min, double b_max,
+    uint max_iteration, double inf_cap
 ) {
     // Allocating array
     auto output = py::array_t<uint8_t>({height, width});
@@ -29,7 +43,7 @@ py::array_t<uint8_t> circle_mask(
         const double b = b_min + dh * db;
         for (int dw = 0; dw < width; ++dw) {
             const double a = a_min + dw * da;
-            arr(dh, dw) = circle_value(a, b);
+            arr(dh, dw) = pixel_value(0, 0, a, b, 0, max_iteration, inf_cap);
         }
     }
 
@@ -38,10 +52,11 @@ py::array_t<uint8_t> circle_mask(
 
 
 // Making python function definition
-PYBIND11_MODULE(circle_mask, m) {
-    m.doc() = "Return 0/1 mask for unit circle over a grid";
-    m.def("circle_mask", &circle_mask,
+PYBIND11_MODULE(mandelbrotCalc, m) {
+    m.doc() = "Calculates iteration per each space in a grid";
+    m.def("mandelbrotCalc", &mandelbrotCalc,
           py::arg("width"), py::arg("height"),
           py::arg("a_min"), py::arg("a_max"),
-          py::arg("b_min"), py::arg("b_max"));
+          py::arg("b_min"), py::arg("b_max"),
+          py::arg("max_iteration"), py::arg("inf_cap"));
 }

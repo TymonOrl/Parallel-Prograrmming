@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named circle_mask
+# Target rules for targets named mandelbrotCalc
 
 # Build rule for target.
-circle_mask: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 circle_mask
-.PHONY : circle_mask
+mandelbrotCalc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mandelbrotCalc
+.PHONY : mandelbrotCalc
 
 # fast build rule for target.
-circle_mask/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/circle_mask.dir/build.make CMakeFiles/circle_mask.dir/build
-.PHONY : circle_mask/fast
+mandelbrotCalc/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mandelbrotCalc.dir/build.make CMakeFiles/mandelbrotCalc.dir/build
+.PHONY : mandelbrotCalc/fast
 
 mandelbrotCalculation.o: mandelbrotCalculation.cpp.o
 .PHONY : mandelbrotCalculation.o
 
 # target to build an object file
 mandelbrotCalculation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/circle_mask.dir/build.make CMakeFiles/circle_mask.dir/mandelbrotCalculation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mandelbrotCalc.dir/build.make CMakeFiles/mandelbrotCalc.dir/mandelbrotCalculation.cpp.o
 .PHONY : mandelbrotCalculation.cpp.o
 
 mandelbrotCalculation.i: mandelbrotCalculation.cpp.i
@@ -142,7 +142,7 @@ mandelbrotCalculation.i: mandelbrotCalculation.cpp.i
 
 # target to preprocess a source file
 mandelbrotCalculation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/circle_mask.dir/build.make CMakeFiles/circle_mask.dir/mandelbrotCalculation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mandelbrotCalc.dir/build.make CMakeFiles/mandelbrotCalc.dir/mandelbrotCalculation.cpp.i
 .PHONY : mandelbrotCalculation.cpp.i
 
 mandelbrotCalculation.s: mandelbrotCalculation.cpp.s
@@ -150,7 +150,7 @@ mandelbrotCalculation.s: mandelbrotCalculation.cpp.s
 
 # target to generate assembly for a file
 mandelbrotCalculation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/circle_mask.dir/build.make CMakeFiles/circle_mask.dir/mandelbrotCalculation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mandelbrotCalc.dir/build.make CMakeFiles/mandelbrotCalc.dir/mandelbrotCalculation.cpp.s
 .PHONY : mandelbrotCalculation.cpp.s
 
 # Help Target
@@ -161,7 +161,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... circle_mask"
+	@echo "... mandelbrotCalc"
 	@echo "... mandelbrotCalculation.o"
 	@echo "... mandelbrotCalculation.i"
 	@echo "... mandelbrotCalculation.s"

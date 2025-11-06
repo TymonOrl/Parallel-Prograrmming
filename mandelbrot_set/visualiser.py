@@ -5,17 +5,20 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath("Parallel-Prograrmming/mandelbrot_set/build")) 
 
-import circle_mask
+import mandelbrotCalc
 
 class MandelbrotVisualisation:
     def __init__(self,
                  width=800, height=600,
                  a_min=-2.0, a_max=2.0,
-                 b_min=-1.5, b_max=1.5):
+                 b_min=-1.5, b_max=1.5,
+                 max_iteration=10, inf_cap=16):
         self.width = width
         self.height = height
         self.initial_bounds = [a_min, a_max, b_min, b_max] 
         self.bounds = [a_min, a_max, b_min, b_max]
+        self.max_it = max_iteration
+        self.inf_cap = inf_cap
         self.fig, self.ax = plt.subplots()
         self.img = None
 
@@ -34,15 +37,16 @@ class MandelbrotVisualisation:
 
     def _title(self):
         a_min, a_max, b_min, b_max = self.bounds
-        return f"Unit Circle  x=[{a_min:.3f},{a_max:.3f}]  y=[{b_min:.3f},{b_max:.3f}]"
+        return f"Section  x=[{a_min:.3f},{a_max:.3f}]  y=[{b_min:.3f},{b_max:.3f}]"
 
     def compute(self):
-        """Rasterize a black unit circle on white background."""
+        # computes iterations for each pixel
         a_min, a_max, b_min, b_max = self.bounds
         # C++ compiled code
-        img = circle_mask.circle_mask(width = self.width, height = self.height,
+        img = mandelbrotCalc.mandelbrotCalc(width = self.width, height = self.height,
                           a_min = a_min, a_max = a_max,
-                          b_min = b_min, b_max = b_max)
+                          b_min = b_min, b_max = b_max,
+                          max_iteration = self.max_it, inf_cap = self.inf_cap)
         return img
 
     def redraw(self):
@@ -50,17 +54,18 @@ class MandelbrotVisualisation:
         a_min, a_max, b_min, b_max = self.bounds
         if self.img is None:
             self.img = self.ax.imshow(
-                img, origin='lower', cmap='gray',
-                vmin=0, vmax=255,
+                img, origin='lower', cmap='bone', #bone
+                vmin=-30, vmax=self.max_it,
                 extent=[a_min, a_max, b_min, b_max],
-                interpolation='nearest'
+                interpolation='nearest',
+                aspect='auto', 
             )
         else:
             self.img.set_data(img)
             self.img.set_extent([a_min, a_max, b_min, b_max])
 
         self.ax.set_title(self._title())
-        self.ax.set_xlabel("Drag to zoom  |  Scroll to zoom  |  r: reset, Backspace: zoom out")
+        self.ax.set_xlabel("Drag or Scroll to zoom  | h: reset, backspace: zoom out")
         self.ax.figure.canvas.draw_idle()
 
     # --- interactions ---
@@ -96,7 +101,8 @@ class MandelbrotVisualisation:
 
 if __name__ == "__main__":
     viewer = MandelbrotVisualisation(
-                 width=500, height=500,
+                 width=1980, height=1080,
                  a_min=-2, a_max=2,
-                 b_min=-2, b_max=2)
+                 b_min=-1.5, b_max=1.5,
+                 max_iteration=255, inf_cap=1000)
     plt.show()
